@@ -72,25 +72,19 @@ public class UserService {
         boolean checkPw = BCrypt.checkpw(dto.getUpw(), hashedPw);
         if (checkPw == true) {
             List<SeldelUserPayDto> payDtos = mapper.seldelUserPay(vo.getIuser());
-            for (SeldelUserPayDto list : payDtos) {
-                mapper.delUserProPic(list.getIproduct());
-            }
-            for (SeldelUserPayDto list1 : payDtos) {
-                mapper.delUserPorc2(list1.getIproduct());
-            }
-            for (SeldelUserPayDto list2 : payDtos) {
-                mapper.delUserPorc(list2.getIuser());
-            }
-            for (SeldelUserPayDto list3 : payDtos) {
-                mapper.delUpUserPay(list3.getIuser());
-            }
 
+            for (SeldelUserPayDto list : payDtos) {
+                if((list.getPistatus()==-1 || list.getPistatus()==-2)&&
+                        (list.getPaistatus() == -1 || list.getPaistatus() == -2 || list.getPaistatus() == -3 || list.getPaistatus() == 1)) {
+                    mapper.delUserProPic(list.getIproduct());
+                    mapper.delUserPorc2(list.getIproduct());
+                    mapper.delUserPorc(list.getIuser());
+                    mapper.delUpUserPay(list.getIuser());
+                }
+            }
         }
         return mapper.delUser(dto);
-    }
 
-    public SelUserVo getUSer(int iuser) {
-        return mapper.selUser(iuser);
     }
 }
 
