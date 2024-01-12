@@ -42,5 +42,8 @@ public class UserController {
     public int patchUser(@RequestBody DelUserDto dto){
         return service.patchUser(dto);
     }
-
+    @GetMapping
+    public SelUserVo getUSer( int iuser){
+        return service.getUSer(iuser);
+    }
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Data
 public class SignupDto {
+    @JsonIgnore
+    private int iuser;
     private int iaddr;
     private String restAddr;
     private String uid;
